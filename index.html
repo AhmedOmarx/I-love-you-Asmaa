@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رسالة حب</title>
+  <style>
+    body {
+      text-align: center;
+      background: linear-gradient(45deg, #ff99cc, #ffd6e6);
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 10px;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    h1 {
+      font-size: 36px;
+      color: #c2185b;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      margin-top: 20px;
+    }
+    
+    #loved-one {
+      width: 180px;
+      height: 180px;
+      margin: 20px auto;
+      display: block;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #ff66b3;
+      box-shadow: 0 8px 16px rgba(194, 28, 91, 0.3);
+      transition: transform 0.5s, box-shadow 0.5s;
+      cursor: pointer;
+    }
+    
+    #loved-one.glowing {
+      box-shadow: 0 0 20px 10px #3074A0;
+    }
+    
+    #question-container {
+      position: relative;
+      margin-top: 20px;
+    }
+    
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    #noBtn {
+      background-color: #ff4f67;
+      color: white;
+      position: absolute;
+    }
+    
+    #yesBtn {
+      background: linear-gradient(45deg, #ff3385, #ff005e);
+      color: white;
+    }
+    
+    #message {
+      font-size: 28px;
+      color: #c2185b;
+      display: none;
+      margin-top: 10px;
+      animation: fadeIn 1s ease-in-out forwards;
+      font-weight: bold;
+    }
+    
+    #names {
+      font-size: 24px;
+      color: #c2185b;
+      display: none;
+      margin-top: 10px;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    #hidden-message, #apology-message {
+      display: none;
+      margin-top: 10px;
+      position: relative;
+      background: linear-gradient(135deg, #7B4699 0%, #ff3385 100%);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      max-width: 80%;
+      color: white;
+      font-size: 20px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      animation: pulse 2s infinite;
+    }
+
+    #apology-message {
+      background: linear-gradient(135deg, #ff4f67 0%, #736282 100%);
+      animation: pulseApology 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes pulseApology {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    
+    #countdown {
+      font-size: 24px;
+      color: #ff005e;
+      display: none;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    
+    .romantic-light {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,182,193,0.3), transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 5;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff3385"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center/contain;
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(20px, -30px) rotate(10deg) scale(1.1);
+        opacity: 0.8;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 30px;
+      }
+      
+      #loved-one {
+        width: 150px;
+        height: 150px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+      
+      #message, #names {
+        font-size: 24px;
+      }
+      
+      #hidden-message, #apology-message {
+        font-size: 18px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>?Do you love me </h1>
+  <img id="loved-one" src="2.jpg">
+  <div id="countdown"></div>
+  <div id="question-container">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+  <div id="message">!I love you more than anything ❤️</div>
+  <div id="names">♥️Ahmed  love Asmaa</div>
+  <div id="hidden-message">كلما نظرت إليكِ، أجد الكون كله في عينيكِ ✨</div>
+  <div id="apology-message">أعتذر لكِ إن قصرت في حقكِ، أنتِ أجمل ما في حياتي ولن أسمح لأي شيء أن يفرق بيننا  بحبك♥️</div>
+  <div class="romantic-light"></div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+    const lovedOne = document.getElementById("loved-one");
+    const hiddenMessage = document.getElementById("hidden-message");
+    const apologyMessage = document.getElementById("apology-message");
+    const countdownEl = document.getElementById("countdown");
+    const namesEl = document.getElementById("names");
+    const romanticLight = document.querySelector(".romantic-light");
+    let heartsInterval;
+
+    // زر "لا" يهرب
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+    
+    function moveButton() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
+      
+      noBtn.style.transition = "all 0.5s ease-out";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      
+      noBtn.style.transform = "rotate(5deg)";
+      setTimeout(() => noBtn.style.transform = "rotate(-5deg)", 100);
+      setTimeout(() => noBtn.style.transform = "rotate(0deg)", 200);
+    }
+
+    // زر "نعم" مع عد تنازلي
+    yesBtn.addEventListener("click", startRomance);
+    yesBtn.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      startRomance();
+    });
+
+    function startRomance() {
+      romanticLight.style.opacity = "1";
+      countdownEl.style.display = "block";
+      lovedOne.classList.add("glowing");
+      
+      let count = 3;
+      countdownEl.textContent = `...${count}`;
+      
+      const timer = setInterval(() => {
+        count--;
+        countdownEl.textContent = `...${count}`;
+        
+        if (count <= 0) {
+          clearInterval(timer);
+          countdownEl.style.display = "none";
+          showLove();
+          setTimeout(() => {
+            hiddenMessage.style.display = "block";
+          }, 500); // تأخير بسيط حتى تظهر الرسالة بعد حب
+          
+          setTimeout(() => {
+            apologyMessage.style.display = "block";
+          }, 2000); // ظهور رسالة الاعتذار بعد 2 ثانية
+        }
+      }, 1000);
+    }
+
+    function showLove() {
+      message.style.display = "block";
+      namesEl.style.display = "block";
+      
+      // قلوب حول الصورة
+      heartsInterval = setInterval(createHearts, 200);
+      setTimeout(() => clearInterval(heartsInterval), 10000);
+    }
+
+    function createHearts() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 100 + Math.random() * 50;
+      const x = lovedOne.offsetLeft + lovedOne.offsetWidth/2 + Math.cos(angle) * radius - 12;
+      const y = lovedOne.offsetTop + lovedOne.offsetHeight/2 + Math.sin(angle) * radius - 12;
+      
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      heart.style.animationDuration = `${3 + Math.random() * 3}s`;
+      document.body.appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 4000);
+    }
+  </script>
+
+</body>
+</html>
